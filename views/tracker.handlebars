@@ -1,0 +1,16 @@
+<section class="container">
+    {{#if loggedIn}}
+    <h1 class="header">
+        Welcome, {{user_name}}!
+    </h1>
+    <div>
+        <h2>
+            Daily Activity Tracker
+        </h2>
+        <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
+        
+    </div>
+</section>
+{{else}}
+<a href="/login">You must login first to view this page</a>
+{{/if}}
