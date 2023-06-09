@@ -1,9 +1,9 @@
-<section class="tracker">
+<section class="home">
     {{#if loggedIn}}
     <h1 class="header">
         Welcome, {{user_name}}!
     </h1>
-    <div>
+    <div class="tracker">
         <h2>
             Daily Activity Tracker
         </h2>
@@ -11,6 +11,10 @@
         <button class="car-travel">I Traveled by Car</button>
         <button class="public-travel">I Used Public Transportation</button>
         <button class=""></button>
+    </div>
+    <div class="donation">
+       {{#each donation.card as |donation|}}
+       {{/each}}
     </div>
 </section>
 {{else}}
