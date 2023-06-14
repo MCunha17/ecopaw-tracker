@@ -8,6 +8,25 @@
     --border-radius: 0.3rem;
 }
 
+a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+header {
+    padding: 40px;
+    text-align: center;
+    background: var(--primary);
+    color: var(--light);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif 
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--primary);
+  }
+
 .login-card {
     /* margin: 0 0 20px 0;
     flex: 0 0 50%;
@@ -17,13 +36,34 @@
     border-radius: var(--border-radius);
     border-style: solid;
     border-width: thick;
-    background-color: #2a9d8f;
-    color: var(--light);
+    background-color:var(--tertiary);
+    color: var(--primary);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.card-1,
+.card-2,
+.card-3 {
+    margin: 20px;
+    flex: 0 1 300px;
+    border: 7px double var(--dark);
+    border-radius: 10px;
+    background-color: var(--secondary);
+    color: var(--dark);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
   }
 
-  .container {
+  .footprint {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: var(--tertiary);
+    color: var(--primary);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  }
+
+.container {
     display: flex;
     flex-flow: column wrap;
     align-content: flex-start;
     align-items: center;
-  }
+}
