@@ -1,5 +1,5 @@
-const Converter = require('length-distance-converter');
-const CarbonAndMore = require('carbon-and-more-api');
+const axios = require('axios');
+const convertUnits = require('convert-units');
 
 const polarBearFacts = [
     'Polar bears have black skin to help absorb and retain heat.',
@@ -11,17 +11,17 @@ const carbonController = {
     calculateEmissions: async (req, res) => {
         try {
             const { ferryOnFoot, classicBus, mediumHybridCar } = req.body;
-            const converter = new Converter();
             
-            const ferryOnFootKm = await converter.convert(ferryOnFoot, 'mi', 'km');
-            const classicBusKm = await converter.convert(classicBus, 'mi', 'km');
-            const mediumHybridCarKm = await converter.convert(mediumHybridCar, 'mi', 'km');
+            const ferryOnFootKm = convertUnits(ferryOnFoot).from('mi').to('km');
+            const classicBusKm = convertUnits(classicBus).from('mi').to('km');
+            const mediumHybridCarKm = convertUnits(mediumHybridCar).from('mi').to('km');
 
-            const carbonApi = new CarbonAndMore('28a4dc5demsh9e1190bfece70cap19a028jsnd72a');
+            const apiKey = '28a4dc5demsh9e1190bfece70cap19a028jsnd72a';
+            const apiUrl = 'https://carbonfootprint1.p.rapidapi.com/'
 
-            const ferryEmissions = await carbonApi.publicTransit(ferryOnFootKm, 'FerryOnFoot');
-            const busEmissions = await carbonApi.publicTransit(classicBusKm, 'ClassicBus');
-            const carEmissions = await carbonApi.carTravel(mediumHybridCarKm, 'MediumHybridCar');
+            const ferryEmissions = await getPublicTransitEmissions(ferryOnFootKm, 'FerryOnFoot', apiKey, apiUrl);
+            const busEmissions = await getPublicTransitEmissions(classicBusKm, 'ClassicBus', apiKey, apiUrl);
+            const carEmissions = await getCarTravelEmissions(mediumHybridCarKm, 'MediumHybridCar', apiKey, apiUrl);
 
             const totalEmissions = ferryEmissions + busEmissions + carEmissions;
             const randomFact = polarBearFacts[Math.floor(Math.random() * polarBearFacts.length)];
@@ -36,6 +36,48 @@ const carbonController = {
             res.status(500).json({ error: 'An error occurred while calculating emissions' });
         }
     },
+};
+
+async function getPublicTransitEmissions(distance, type, apiKey, apiUrl) {
+    try {
+        const response = await axios.get(
+            `${apiUrl}/CarbonFootprintFromPublicTransit`, {
+                params: {
+                    distance,
+                    type,
+                },
+                headers: {
+                    apiKey,
+                    apiUrl
+                },
+            }
+        );
+
+        return response.data.emissions;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+async function getCarTravelEmissions(distance, type, apiKey, apiUrl) {
+    try {
+        const response = await axios.get(
+            `${apiUrl}/CarbonFootprintFromCarTravel`, {
+                params: {
+                    distance,
+                    type,
+                },
+                headers: {
+                    apiKey,
+                    apiUrl
+                },
+            }
+        );
+
+        return response.data.emissions;
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 module.exports = carbonController;
