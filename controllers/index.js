@@ -6,6 +6,7 @@ const homeRoutes = require('./home-routes');
 const factsRoutes = require('./facts-routes');
 const carbonController = require('./carbonController');
 
+router.use('/', homeRoutes);
 router.use('/auth', authControllers.login);
 router.use('/emissions', emissionsRoutes);
 router.use('/home', homeRoutes);

@@ -31,6 +31,7 @@ CarbonEmission.init(
   {
     sequelize,
     modelName: 'CarbonEmission',
+    tableName: 'carbon_emissions',
     timestamps: true,
     underscored: true
   }
