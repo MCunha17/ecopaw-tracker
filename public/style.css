@@ -1,0 +1,29 @@
+:root {
+    --primary: #264653;
+    --secondary: #2a9d8f;
+    --tertiary: #f4a261;
+    --light: #e3e4e3;
+    --dark: #182c23;
+    --error: #e76f51;
+    --border-radius: 0.3rem;
+}
+
+.login-card {
+    /* margin: 0 0 20px 0;
+    flex: 0 0 50%;
+    max-width: 50%; */
+    padding: 5px;
+    border: 3px solid var(--dark);
+    border-radius: var(--border-radius);
+    border-style: solid;
+    border-width: thick;
+    background-color: #2a9d8f;
+    color: var(--light);
+  }
+
+  .container {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: flex-start;
+    align-items: center;
+  }

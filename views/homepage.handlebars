@@ -1,0 +1,22 @@
+<section class="home">
+    {{#if loggedIn}}
+    <h1 class="header">
+        Welcome, {{user_name}}!
+    </h1>
+    <div class="tracker">
+        <h2>
+            Daily Activity Tracker
+        </h2>
+        <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
+        <button class="car-travel">I Traveled by Car</button>
+        <button class="public-travel">I Used Public Transportation</button>
+        <button class=""></button>
+    </div>
+    <div class="donation">
+       {{#each donation.card as |donation|}}
+       {{/each}}
+    </div>
+</section>
+{{else}}
+<a href="/login">You must login first to view this page</a>
+{{/if}}
