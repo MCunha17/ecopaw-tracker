@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const router = require('express').Router();
+const { User } = require('../models');
 
 const login = async (req, res) => {
     try {
@@ -21,7 +22,7 @@ const login = async (req, res) => {
 
 const signup = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, email, password } = req.body;
         const existingUser = await User.findOne({ username });
 
         if (existingUser) {
@@ -30,6 +31,7 @@ const signup = async (req, res) => {
 
         const newUser = new User({
             username,
+            email,
             password,
         });
         await newUser.save();

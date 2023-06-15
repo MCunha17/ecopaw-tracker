@@ -10,4 +10,4 @@
 * connect-session-sequalize: npm install connect-session-sequelize
 * mysql2: npm install mysql2
 * length-distance-convertor: npm install length-distance-converter
-* carbon-and-more-api
+* convert-units: npm install convert-units

@@ -1,11 +1,9 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 
 // Home Route
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Welcome to EcoPaw!');
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+module.exports = router;
