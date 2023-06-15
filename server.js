@@ -29,17 +29,16 @@ const customMiddleware = (req, res, next) => {
   next();
 };
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(customMiddleware);
 
 app.use(session(sess));
 
-// Set up handlebars
-app.engine('handlebars', exphbs());
+app.engine('handlebars', exphbs);
 app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
