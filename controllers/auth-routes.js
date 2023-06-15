@@ -1,13 +1,13 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 
 // Register route
-app.post('/api/register', (req, res) => {
+router.post('/api/register', (req, res) => {
   // Placeholder
 });
 
 // Login route
-app.post('/api/login', (req, res) => {
+router.post('/api/login', (req, res) => {
   // Placeholder
 });
 
@@ -24,7 +24,7 @@ const authenticateUser = (req, res, next) => {
 };
 
 // Profile route
-app.get('/api/profile', (req, res) => {
+router.get('/api/profile', (req, res) => {
   // Check if user is authenticated
   if (req.user) {
     // If user is authenticated, send profile data
@@ -34,3 +34,5 @@ app.get('/api/profile', (req, res) => {
     res.status(401).json({ error: 'Unauthorized' });
   }
 });
+
+module.exports = router;

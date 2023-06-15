@@ -1,9 +1,9 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 const mysql = require('mysql');
 
 // Get polar bear fact
-app.get('/api/polar-bear-facts', (req, res) => {
+router.get('/api/polar-bear-facts', (req, res) => {
   // Query database to retrieve a random polar bear fact
   const query = 'SELECT fact FROM polar_bear_facts ORDER BY RAND() LIMIT 1';
 
@@ -24,6 +24,4 @@ app.get('/api/polar-bear-facts', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+module.exports = router;
