@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const { withAuth } = require('../utils/auth');
 
 // Get polar bear fact
-router.get('/api/polar-bear-facts', (req, res) => {
+router.get('/api/polar-bear-facts', withAuth, (req, res) => {
   // Query database to retrieve a random polar bear fact
   const query = 'SELECT fact FROM polar_bear_facts ORDER BY RAND() LIMIT 1';
 

@@ -23,6 +23,14 @@ const sess = {
   }),
 };
 
+// Middleware function
+const customMiddleware = (req, res, next) => {
+  console.log('Custom middleware function is executed');
+  next();
+};
+
+app.use(customMiddleware);
+
 app.use(session(sess));
 
 app.engine('handlebars', exphbs);
