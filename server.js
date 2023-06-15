@@ -23,9 +23,23 @@ const sess = {
   }),
 };
 
+// Middleware function
+const customMiddleware = (req, res, next) => {
+  console.log('Custom middleware function is executed');
+  next();
+};
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(customMiddleware);
+
+app.use(session(sess));
+
+// Set up handlebars
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 app.use(routes);
 
