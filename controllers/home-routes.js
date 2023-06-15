@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-// Home Route
+// Login Route
 router.get('/', (req, res) => {
-  res.send('Welcome to EcoPaw!');
+  res.render('login');
 });
 
 module.exports = router;
