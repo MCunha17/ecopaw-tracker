@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const router = require('express').Router();
+const { User } = require('../models');
 
 const login = async (req, res) => {
     try {
