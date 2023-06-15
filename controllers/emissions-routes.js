@@ -1,8 +1,8 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 
 // Emissions entry
-app.post('/api/emissions', (req, res) => {
+router.post('/api/emissions', (req, res) => {
   const { userId, emissions } = req.body;
 
   // Validate
@@ -17,7 +17,7 @@ app.post('/api/emissions', (req, res) => {
 });
 
 // Retrive emissions history
-app.get('/api/emissions', (req, res) => {
+router.get('/api/emissions', (req, res) => {
   const { userId } = req.query;
   // Validate
   if (!userId) {
@@ -31,6 +31,4 @@ app.get('/api/emissions', (req, res) => {
   res.status(200).json({ userId, emissionsHistory: [] });
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+module.exports = router;
