@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const User = require('../models/User');
-=======
 const User  = require('../models/User');
->>>>>>> caab48533bf3db990967aa40ab48d1e91465c48b
 
 const userdata = [
     {
