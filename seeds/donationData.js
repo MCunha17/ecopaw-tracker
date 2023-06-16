@@ -1,4 +1,4 @@
-const { Donation } = require('../models');
+const Donation = require('../models/Donation');
 
 const donationData = [
     {
