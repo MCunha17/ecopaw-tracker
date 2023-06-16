@@ -3,19 +3,20 @@ const User = require('../models/User')
 
 const login = async (req, res) => {
     try {
-        const username = req.body.username;
         const password = req.body.password;
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ where: { username: req.body.username } });
 
-        if (!user || !user.checkPassword(password)) {
-            return res.status(404).json({ error: 'Invalid username or password.' });
-        } else {
+        if (!user && !user.checkPassword({ password: req.body.password })) {
+            return res.redirect('/')
+        } else if (user && user.checkPassword(password)) {
             req.session.save(() => {
                 req.session.user_id = user.id;
                 req.session.loggedIn = true;
             });
 
             res.redirect('/home');
+        } else {
+            return res.redirect('/');
         }
     } catch (error) {
         console.error(error);
@@ -28,9 +29,9 @@ const signup = async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
         const newUser = await User.create({ username, password })
+
         if (newUser) {
-            req.session.loggedIn = true;
-            req.session.save();
+            req.session.user_id = newUser.id;
         }
         
         res.json({ message: 'Signup successful.' });

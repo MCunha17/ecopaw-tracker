@@ -14,16 +14,16 @@
 
 <body>
   <div class="flex">
-  <form class="login-card" method="POST" action="/login">
+  <form class="login-card" method="POST" action="/">
     <h2 class="page-title">Login</h2>
     <form class="form login-form">
       <div class="form-group">
         <label for="username">Email:</label>
-        <input class="form-input" type="text" id="username" name="username" placeholder="email"/>
+        <input class="form-input" type="text" id="username" name="username" placeholder="email" required="true"/>
       </div>
       <div class="form-group">
-        <label for="password-login">Password:</label>
-        <input class="form-input" type="password" id="password" name="password" placeholder="password"/>
+        <label for="password">Password:</label>
+        <input class="form-input" type="password" id="password" name="password" placeholder="password" required="true"/>
       </div>
       <div class="form-group">
         <button class="btn btn-primary" type="submit">login</button>
@@ -36,7 +36,7 @@
     <form class="form signup-form">
       <div class="form-group">
         <label for="username">Username:</label>
-        <input class="form-input" type="text" id="username" name="username" placeholder="username"/>
+        <input class="form-input" type="text" id="username" name="username" placeholder="username" required="true"/>
       </div>
       <div class="form-group">
         <label for="email-signup">Email:</label>
@@ -44,7 +44,7 @@
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input class="form-input" type="password" id="password" name="password" placeholder="password"/>
+        <input class="form-input" type="password" id="password" name="password" placeholder="password" required="true"/>
       </div>
       <div class="form-group">
         <button class="btn btn-primary" type="submit">signup</button>
