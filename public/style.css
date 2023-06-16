@@ -11,6 +11,16 @@
 a {
     color: var(--dark);
     text-decoration: none;
+    font-family: 'Lato', sans-serif;
+}
+
+p {
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+}
+
+h1 {
+    font-family: 'Oswald', sans-serif;
 }
 
 header {
@@ -18,7 +28,7 @@ header {
     text-align: center;
     background: var(--primary);
     color: var(--light);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif 
+    font-family: 'Oswald', sans-serif
 }
 
 main {
@@ -27,18 +37,20 @@ main {
     background-color: var(--primary);
   }
 
+  button {
+    background: var(--secondary);
+  }
+
 .login-card {
-    /* margin: 0 0 20px 0;
-    flex: 0 0 50%;
-    max-width: 50%; */
+    margin:auto;
+    display: block;
+    justify-self: center;
+    max-width: 50%;
     padding: 5px;
     border: 3px solid var(--dark);
     border-radius: var(--border-radius);
-    border-style: solid;
-    border-width: thick;
     background-color:var(--tertiary);
     color: var(--primary);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 
 .card-1,
@@ -50,7 +62,6 @@ main {
     border-radius: 10px;
     background-color: var(--secondary);
     color: var(--dark);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
   }
 
   .footprint {
@@ -58,7 +69,6 @@ main {
     padding: 10px 20px;
     background-color: var(--tertiary);
     color: var(--primary);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
   }
 
 .container {
