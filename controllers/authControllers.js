@@ -3,17 +3,18 @@ const User = require('../models/User')
 
 const login = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const username = req.body.username;
+        const password = req.body.password;
         const user = await User.findOne({ username });
 
         if (!user || !user.checkPassword(password)) {
             return res.status(404).json({ error: 'Invalid username or password.' });
+        } else {
+            req.session.loggedIn = true;
+            req.session.save();
+
+            res.redirect('/home');
         }
-
-        req.session.loggedIn = true;
-        req.session.save();
-
-        res.json({ message: 'Login successful.' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while processing the login request' });
@@ -22,18 +23,14 @@ const login = async (req, res) => {
 
 const signup = async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const existingUser = await User.findOne({ username });
-
-        if (existingUser) {
-            return res.status(404).json({ error: 'Username already exists. Please choose a different username.' });
+        const username = req.body.username;
+        const password = req.body.password;
+        const newUser = await User.create({ username, password })
+        if (newUser) {
+            req.session.loggedIn = true;
+            req.session.save();
         }
-
-        const newUser = new User({
-            username,
-            password,
-        });
-        await newUser.save();
+        
         res.json({ message: 'Signup successful.' });
     } catch (error) {
         console.error(error);
