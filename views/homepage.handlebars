@@ -1,8 +1,24 @@
-<section class="home">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPaw</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./public/style.css">
+</head>
+
+<body>
     {{#if loggedIn}}
-    <h1 class="header">
-        Welcome, {{user_name}}!
-    </h1>
+    <header>
+        <h1 class="header">
+            Welcome, {{user_name}}!
+        </h1>
+    </header>
     <div class="tracker">
         <h2>
             Daily Activity Tracker
@@ -13,10 +29,21 @@
         <button class=""></button>
     </div>
     <div class="donation">
-       {{#each donation.card as |donation|}}
-       {{/each}}
+        {{#each donation.card as |donation|}}
+        {{/each}}
     </div>
-</section>
-{{else}}
-<a href="/login">You must login first to view this page</a>
-{{/if}}
+
+    <div class="footprint">
+        <h2>
+            Your Carbon Footprint:
+        </h2>
+      <p>{{CarbonController}}</p>
+
+    </div>
+    {{else}}
+    <a href="/login">You must login first to view this page</a>
+    {{/if}}
+    </section>
+</body>
+
+</html>

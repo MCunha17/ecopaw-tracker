@@ -4,7 +4,8 @@ require('dotenv').config();
 const sequelize = new Sequelize(
   'ecopaw_db',
   'root',
-  'Peyton3232!',
+  '1234',
+
   {
     host: 'localhost',
     dialect: 'mysql',

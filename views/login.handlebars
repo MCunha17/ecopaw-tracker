@@ -1,34 +1,50 @@
-<div class="row justify-space-between-md">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPaw</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./public/style.css">
+</head>
+
+<body>
+  <div class="flex">
   <form class="login-card" method="POST" action="/login">
     <h2 class="page-title">Login</h2>
     <form class="form login-form">
       <div class="form-group">
         <label for="username">Email:</label>
-        <input class="form-input" type="text" id="username" />
+        <input class="form-input" type="text" id="username" placeholder="email"/>
       </div>
       <div class="form-group">
         <label for="password-login">Password:</label>
-        <input class="form-input" type="password" id="password" />
+        <input class="form-input" type="password" id="password" placeholder="password"/>
       </div>
       <div class="form-group">
         <button class="btn btn-primary" type="submit">login</button>
       </div>
     </form>
   </form>
+
   <form class="login-card" method="POST" action="/signup">
     <h2 class="page-title">Signup</h2>
     <form class="form signup-form">
       <div class="form-group">
         <label for="username-signup">Username:</label>
-        <input class="form-input" type="text" id="username" name="username"/>
+        <input class="form-input" type="text" id="username" placeholder="username" />
       </div>
       <div class="form-group">
         <label for="email-signup">Email:</label>
-        <input class="form-input" type="text" id="email" />
+        <input class="form-input" type="text" id="email" placeholder="email"  />
       </div>
       <div class="form-group">
         <label for="password-signup">Password:</label>
-        <input class="form-input" type="password" id="password" name="password"/>
+        <input class="form-input" type="password" id="password" placeholder="password"/>
       </div>
       <div class="form-group">
         <button class="btn btn-primary" type="submit">signup</button>
@@ -36,5 +52,5 @@
     </form>
   </form>
 </div>
-
-<script src="./js/login.js"></script>
+</body>
+</html>
