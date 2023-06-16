@@ -10,8 +10,10 @@ const login = async (req, res) => {
         if (!user || !user.checkPassword(password)) {
             return res.status(404).json({ error: 'Invalid username or password.' });
         } else {
-            req.session.loggedIn = true;
-            req.session.save();
+            req.session.save(() => {
+                req.session.user_id = user.id;
+                req.session.loggedIn = true;
+            });
 
             res.redirect('/home');
         }
