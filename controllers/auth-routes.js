@@ -1,38 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const authControllers = require('./authControllers');
 
 // Register route
-router.post('/api/register', (req, res) => {
-  // Placeholder
-});
+router.post('/signup', authControllers.signup);
 
 // Login route
-router.post('/api/login', (req, res) => {
-  // Placeholder
-});
+router.post('/login', authControllers.login);
 
-// Authentication middleware
-const authenticateUser = (req, res, next) => {
-  // Check if user is authenticated
-  if (req.user) {
-    // If user is authenticated, proceed to the next middleware
-    next();
-  } else {
-    // If user is not authenticated, send an error response
-    res.status(401).json({ error: 'Unauthorized' });
-  }
-};
-
-// Profile route
-router.get('/api/profile', (req, res) => {
-  // Check if user is authenticated
-  if (req.user) {
-    // If user is authenticated, send profile data
-    res.json({ user: req.user });
-  } else {
-    // If user is not authenticated, send an error response
-    res.status(401).json({ error: 'Unauthorized' });
-  }
-});
+router.post('/logout', authControllers.logout);
 
 module.exports = router;
