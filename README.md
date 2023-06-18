@@ -13,21 +13,10 @@ Show your love for polar bears and the environment by tracking your carbon footp
 [6. Example Images](#Example-Images)  
 [7. Sources](#Sources)  
 [8. License](#License)  
+[9. Technologies Used](#Technologies-Used)  
 
 ## Installation
 Clone the starter code and initialize the program by running an ``` npm install ```. Source the database through mysql and seed the database using ``` node index.js ```. Finally, start the server by running ``` npm start ``` and clicking on the link to your local host.
-
-## Technologies Used
-* dotenv: npm install dotenv
-* bcrypt: npm install bcrypt
-* express: npm install express
-* express-session: npm install express-session
-* express-handlebars: npm install express-handlebars
-* sequelize: npm install sequelize
-* connect-session-sequalize: npm install connect-session-sequelize
-* mysql2: npm install mysql2
-* length-distance-convertor: npm install length-distance-converter
-* convert-units: npm install convert-units
 
 ## Usage
 Track your carbon footprint by signing up and logging in. You have the ability to choose your method of transportation used for that day for the distance that you traveled, and your carbon footprint will be displayed on the page.  
