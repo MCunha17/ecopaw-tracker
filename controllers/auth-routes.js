@@ -1,17 +1,58 @@
-const express = require('express');
-const router = express.Router();
-const authControllers = require('./authControllers');
+const router = require('express').Router();
+const User = require('../models/User');
 
-router.get('/', (req, res) => {
-    res.render('login');
-  });
+const authRoutes = {
+  login: async (req, res) => {
+    try {
+      const { username, password } = req.body;
 
-// Register route
-router.post('/signup', authControllers.signup);
+      const user = await User.findOne({ where: { username } });
 
-// Login route
-router.post('/', authControllers.login);
+      if (!user) {
+        res.status(400).json({ message: 'Incorrect username. Please try again!' });
+        return;
+      }
 
-router.post('/logout', authControllers.logout);
+      const validPassword = await user.checkPassword(password);
 
-module.exports = router;
+      if (!validPassword) {
+        res.status(400).json({ message: 'Incorrect password. Please try again!' });
+        return;
+      }
+
+      req.session.user_id = user.id;
+      req.session.loggedIn = true;
+
+      res.redirect('/homepage');
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while processing the login request' });
+    }
+  },
+
+  signup: async (req, res) => {
+    try {
+      const { username, email, password } = req.body;
+
+      // Check if the username is already taken
+      const existingUser = await User.findOne({ where: { username } });
+
+      if (existingUser) {
+        res.status(400).json({ message: 'Username already exists. Please choose a different username!' });
+        return;
+      }
+
+      const newUser = await User.create({ username, email, password });
+
+      req.session.user_id = newUser.id;
+      req.session.loggedIn = true;
+
+      res.redirect('/homepage');
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while processing the signup request' });
+    }
+  }
+};
+
+module.exports = authRoutes;
