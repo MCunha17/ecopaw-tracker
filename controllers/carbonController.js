@@ -10,14 +10,14 @@ const calculateEmissions = async (req, res) => {
     const carKm = convert(carMiles).from('mi').to('km');
     const publicTransKm = convert(publicTransMiles).from('mi').to('km');
 
-        // Log the conversion results
-        console.log(`Car miles converted to kilometers: ${carKm}`);
-        console.log(`Public transport miles converted to kilometers: ${publicTransKm}`);   
+    // Log the conversion results
+    console.log(`Car miles converted to kilometers: ${carKm}`);
+    console.log(`Public transport miles converted to kilometers: ${publicTransKm}`);   
 
     // API key
     const apiKey = '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359';
 
-    // Headers and params for car emissions request
+    // Prepare the headers and params for the request to the Carbon Footprint API for car emissions
     const carOptions = {
         method: 'GET',
         url: 'https://carbonfootprint1.p.rapidapi.com/CarbonFootprintFromCarTravel',
@@ -30,7 +30,8 @@ const calculateEmissions = async (req, res) => {
           'X-RapidAPI-Host': 'carbonfootprint1.p.rapidapi.com'
         }
     };
-    // Headers and params for public transport emissions request
+
+    // Prepare the headers and params for the request to the Carbon Footprint API for car emissions
     const publicTransOptions = {
         method: 'GET',
         url: 'https://carbonfootprint1.p.rapidapi.com/CarbonFootprintFromPublicTransit',
@@ -49,6 +50,7 @@ const calculateEmissions = async (req, res) => {
         const carEmissionsResponse = await axios.request(carOptions);
         const publicTransEmissionsResponse = await axios.request(publicTransOptions);
     
+        // Log responses
         console.log("Car Emissions Response:", carEmissionsResponse.data);
         console.log("Public Transport Emissions Response:", publicTransEmissionsResponse.data);
     
@@ -59,14 +61,17 @@ const calculateEmissions = async (req, res) => {
         // Calculate total emissions
         let totalEmissions = (parseFloat(carEmission) + parseFloat(publicTransEmission)).toFixed(1);
     
+        // Log total emissions
         console.log("Total Emissions:", totalEmissions);
 
-   // Send back the total emissions as a JSON response
-   res.json({ totalEmissions });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error calculating emissions');
+        // Send the total emissions as a JSON response
+        res.json({ totalEmissions });
+    } catch (error) {
+        // If error, send 500 status code and error message
+        console.error(error);
+        res.status(500).send('Error calculating emissions.');
   }
 };
 
+// Export calculateEmissions function
 module.exports = { calculateEmissions };
