@@ -16,8 +16,11 @@
     {{#if loggedIn}}
     <header>
         <h1 class="header">
-            Welcome, {{user_name}}!
+            Welcome, {{user.username}}!
         </h1>
+        <form action="/logout" method="post">
+          <button type="submit">Logout</button>
+        </form>
     </header>
     <div class="tracker">
         <h2>
@@ -26,8 +29,30 @@
         <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
         <button class="car-travel">I Traveled by Car</button>
         <button class="public-travel">I Used Public Transportation</button>
-        <button class=""></button>
+
+        <div id="emissions-form">
+            <h3>Enter Miles Traveled</h3>
+
+            <div class="form-group">
+                <label for="carMiles">Car Miles:</label>
+                <input type="number" id="carMiles" name="carMiles" min="0" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="publicTransMiles">Public Transportation Miles:</label>
+                <input type="number" id="publicTransMiles" name="publicTransMiles" min="0" step="0.1" required>
+            </div>
+
+            <button id="calculateBtn">Calculate Total Emissions</button>
+        </div>
+
+        <div id="emissions-result">
+            <div class="emissions" method="POST" action="/calculate-emissions">
+            <h3>Emissions Saved:</h3>
+            <p id="emissionsSaved"></p>
+        </div>
     </div>
+
     <div class="donation">
         {{#each donation.card as |donation|}}
         {{/each}}
@@ -37,13 +62,47 @@
         <h2>
             Your Carbon Footprint:
         </h2>
-      <p>{{CarbonController}}</p>
-
+        <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
     </div>
-    {{else}}
-    <a href="/">You must login first to view this page</a>
     {{/if}}
-    </section>
-</body>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const emissionsForm = document.querySelector('#emissions-form');
+        const calculateBtn = document.querySelector('#calculateBtn');
+        const emissionsSaved = document.querySelector('#emissionsSaved');
+
+        calculateBtn.addEventListener('click', () => {
+            const carMiles = parseFloat(document.querySelector('#carMiles').value);
+            const publicTransMiles = parseFloat(document.querySelector('#publicTransMiles').value);
+
+            fetch('/calculate-emissions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    carMiles,
+                    publicTransMiles
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                emissionsSaved.textContent = `${data.totalEmissions} kg CO2e`;
+                emissionsSaved.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                emissionsSaved.textContent = 'Error calculating emissions';
+                emissionsSaved.style.display = 'block';
+            });
+        });
+    });
+</script>
+</body>
 </html>

@@ -1,53 +1,85 @@
 const router = require('express').Router();
-const User = require('../models/User')
+const User = require('../models/User');
 
-const login = async (req, res) => {
-    try {
-        const password = req.body.password;
-        const user = await User.findOne({ where: { username: req.body.username } });
+const authControllers = {
+    // Login controller function
+    login: async (req, res) => {
+        try {
+        // Extract username and password from the request
+        const { username, password } = req.body;
 
-        if (!user && !user.checkPassword({ password: req.body.password })) {
-            return res.redirect('/')
-        } else if (user && user.checkPassword(password)) {
-            req.session.save(() => {
-                req.session.user_id = user.id;
-                req.session.loggedIn = true;
-            });
+        // Try to find user with the entered username
+        const user = await User.findOne({ where: { username } });
 
-            res.redirect('/home');
-        } else {
-            return res.redirect('/');
+        // If no user found, send error message
+        if (!user) {
+            res.status(400).json({ message: 'Incorrect username. Please try again!' });
+            return;
         }
-    } catch (error) {
+
+        // Check if the entered password is correct
+        const validPassword = await user.checkPassword(password);
+
+        // If the password is incorrect, send back an error message
+        if (!validPassword) {
+            res.status(400).json({ message: 'Incorrect password. Please try again!' });
+            return;
+        }
+
+        // If correct, create a session for the user
+        req.session.user_id = user.id;
+        req.session.loggedIn = true;
+
+        // Redirect user to the homepage
+        res.redirect('/homepage');
+        } catch (error) {
+        // If error, send server error message
         console.error(error);
         res.status(500).json({ error: 'An error occurred while processing the login request' });
-    }
-};
-
-const signup = async (req, res) => {
-    try {
-        const username = req.body.username;
-        const password = req.body.password;
-        const newUser = await User.create({ username, password })
-
-        if (newUser) {
-            req.session.user_id = newUser.id;
         }
-        
-        res.json({ message: 'Signup successful.' });
-    } catch (error) {
+    },
+
+    // Signup controller function
+    signup: async (req, res) => {
+        try {
+        // Extract username and password from the request
+        const { username, email, password } = req.body;
+        // Check if the username already exists
+        const existingUser = await User.findOne({ where: { username } });
+        // If the username is taken, send back an error message
+        if (existingUser) {
+            res.status(400).json({ message: 'Username already exists. Please choose a different username!' });
+            return;
+        }
+        // Create a new user with the provided username, email and password
+        const newUser = await User.create({ username, email, password });
+        // Create a session for the new user
+        req.session.user_id = newUser.id;
+        req.session.loggedIn = true;
+        // Redirect the user to the homepage
+        res.redirect('/homepage');
+        } catch (error) {
+        // If error, send server error message
         console.error(error);
-        res.status(500).json({ error: 'An error occurred while processing the signup request.' });
-    }
-};
+        res.status(500).json({ error: 'An error occurred while processing the signup request' });
+        }
+    },
 
-const logout = (req, res) => {
-    try {
-        req.session.destroy();
-        res.json({ message: 'Logout successful.' });
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred while processing the logout request. '});
-    }
-};
+    // Logout controller function
+    logout: (req, res) => {
+        // Check if the user is already logged in
+        if (req.session.loggedIn) {
+          // If so, end the session
+          req.session.destroy(() => {
+            // And redirect to the '/' route
+            res.redirect('/');
+          });
+        } else {
+          // If the user is not logged in, simply redirect to the '/' route
+          res.redirect('/');
+        }
+    },
+};    
 
-module.exports = { login, signup, logout };
+// Export the controllers
+module.exports = authControllers;

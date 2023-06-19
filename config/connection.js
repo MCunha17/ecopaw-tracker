@@ -4,7 +4,7 @@ require('dotenv').config();
 const sequelize = new Sequelize(
   'ecopaw_db',
   'root',
-  '1234',
+  'Abobora!19',
 
   {
     host: 'localhost',

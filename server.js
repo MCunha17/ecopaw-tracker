@@ -8,6 +8,7 @@ const routes = require('./controllers');
 const sequelize = require('./config/connection');
 
 const app = express();
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3001;
 
 const sess = {
@@ -22,6 +23,11 @@ const sess = {
     db: sequelize,
   }),
 };
+
+// server.js
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware function
 const customMiddleware = (req, res, next) => {
@@ -38,6 +44,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);

@@ -1,9 +1,10 @@
 const withAuth = (req, res, next) => {
-    if (!req.session.loggedIn) {
-      res.redirect('/login');
-    } else {
-      next();
-    }
+  // Check if the user is authenticated
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect('/signup');
+  }
 };
-  
- module.exports = withAuth;
+
+module.exports = withAuth;
