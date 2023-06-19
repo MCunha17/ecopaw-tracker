@@ -1,58 +1,46 @@
-const router = require('express').Router();
-const User = require('../models/User');
+const express = require('express');
+const router = express.Router();
+const authControllers = require('./authControllers');
 
-const authRoutes = {
-  login: async (req, res) => {
-    try {
-      const { username, password } = req.body;
+// GET Login route
+router.get('/login', (req, res) => {
+  res.render('login', { layout: 'main' });
+});
 
-      const user = await User.findOne({ where: { username } });
+// POST Login route
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-      if (!user) {
-        res.status(400).json({ message: 'Incorrect username. Please try again!' });
-        return;
-      }
+    // Find the user in the database
+    const user = await User.findOne({ where: { username } });
 
-      const validPassword = await user.checkPassword(password);
+    if (!user) {
+      res.status(400).json({ message: 'Incorrect username. Please try again!' });
+      return;
+    }
 
-      if (!validPassword) {
-        res.status(400).json({ message: 'Incorrect password. Please try again!' });
-        return;
-      }
+    const validPassword = await user.checkPassword(password);
 
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password. Please try again!' });
+      return;
+    }
+
+    // Set the user's session to indicate successful login
+    req.session.save(() => {
       req.session.user_id = user.id;
+      req.session.email = user.email;
+      req.session.username = user.username;
       req.session.loggedIn = true;
 
+      // Redirect the user to the homepage after successful login
       res.redirect('/homepage');
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'An error occurred while processing the login request' });
-    }
-  },
-
-  signup: async (req, res) => {
-    try {
-      const { username, email, password } = req.body;
-
-      // Check if the username is already taken
-      const existingUser = await User.findOne({ where: { username } });
-
-      if (existingUser) {
-        res.status(400).json({ message: 'Username already exists. Please choose a different username!' });
-        return;
-      }
-
-      const newUser = await User.create({ username, email, password });
-
-      req.session.user_id = newUser.id;
-      req.session.loggedIn = true;
-
-      res.redirect('/homepage');
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'An error occurred while processing the signup request' });
-    }
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
-};
+});
 
-module.exports = authRoutes;
+module.exports = router;
