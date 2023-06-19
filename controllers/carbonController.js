@@ -1,83 +1,72 @@
 const axios = require('axios');
-const convertUnits = require('convert-units');
+const convert = require('convert-units');
 
-const polarBearFacts = [
-    'Polar bears have black skin to help absorb and retain heat.',
-    'Polar bears can swim for long distances and reach up to speeds of up to 6 mph in the water.',
-    'Polar bears have a layer of blubber that can be more than 10 cm thick, which helps keep them warm.',
-];
+const calculateEmissions = async (req, res) => {
+    // Parse the values from the request body
+    let carMiles = req.body.carMiles;
+    let publicTransMiles = req.body.publicTransMiles;
 
-const carbonController = {
-    calculateEmissions: async (req, res) => {
-        try {
-            const { ferryOnFoot, classicBus, mediumHybridCar } = req.body;
-            
-            const ferryOnFootKm = convertUnits(ferryOnFoot).from('mi').to('km');
-            const classicBusKm = convertUnits(classicBus).from('mi').to('km');
-            const mediumHybridCarKm = convertUnits(mediumHybridCar).from('mi').to('km');
+    // Convert miles to kilometers using convert-units library
+    const carKm = convert(carMiles).from('mi').to('km');
+    const publicTransKm = convert(publicTransMiles).from('mi').to('km');
 
-            const apiKey = '28a4dc5demsh9e1190bfece70cap19a028jsnd72a';
-            const apiUrl = 'https://carbonfootprint1.p.rapidapi.com/'
+        // Log the conversion results
+        console.log(`Car miles converted to kilometers: ${carKm}`);
+        console.log(`Public transport miles converted to kilometers: ${publicTransKm}`);   
 
-            const ferryEmissions = await getPublicTransitEmissions(ferryOnFootKm, 'FerryOnFoot', apiKey, apiUrl);
-            const busEmissions = await getPublicTransitEmissions(classicBusKm, 'ClassicBus', apiKey, apiUrl);
-            const carEmissions = await getCarTravelEmissions(mediumHybridCarKm, 'MediumHybridCar', apiKey, apiUrl);
+    // API key
+    const apiKey = '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359';
 
-            const totalEmissions = ferryEmissions + busEmissions + carEmissions;
-            const randomFact = polarBearFacts[Math.floor(Math.random() * polarBearFacts.length)];
-
-            res.json({
-                totalEmissions,
-                randomFact,
-                message: 'Here is your calculated carbon emissions. Thank you for making an effort to improve your carbon emissions! The polar bears thank you as well!!!',
-            });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'An error occurred while calculating emissions' });
+    // Headers and params for car emissions request
+    const carOptions = {
+        method: 'GET',
+        url: 'https://carbonfootprint1.p.rapidapi.com/CarbonFootprintFromCarTravel',
+        params: {
+            distance: carKm,
+            vehicle: 'MediumDieselCar'
+        },
+        headers: {
+          'X-RapidAPI-Key': '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359',
+          'X-RapidAPI-Host': 'carbonfootprint1.p.rapidapi.com'
         }
-    },
+    };
+    // Headers and params for public transport emissions request
+    const publicTransOptions = {
+        method: 'GET',
+        url: 'https://carbonfootprint1.p.rapidapi.com/CarbonFootprintFromPublicTransit',
+        params: {
+            distance: publicTransKm,
+            type: 'ClassicBus'
+        },
+        headers: {
+            'X-RapidAPI-Key': apiKey,
+            'X-RapidAPI-Host': 'carbonfootprint1.p.rapidapi.com'
+        }
+      };
+
+      try {
+        // Send requests to the Carbonfootprint API for both car and public transport
+        const carEmissionsResponse = await axios.request(carOptions);
+        const publicTransEmissionsResponse = await axios.request(publicTransOptions);
+    
+        console.log("Car Emissions Response:", carEmissionsResponse.data);
+        console.log("Public Transport Emissions Response:", publicTransEmissionsResponse.data);
+    
+        // Extract the emission values
+        let carEmission = carEmissionsResponse.data.carbonEquivalent;
+        let publicTransEmission = publicTransEmissionsResponse.data.carbonEquivalent;
+    
+        // Calculate total emissions
+        let totalEmissions = (parseFloat(carEmission) + parseFloat(publicTransEmission)).toFixed(1);
+    
+        console.log("Total Emissions:", totalEmissions);
+
+   // Send back the total emissions as a JSON response
+   res.json({ totalEmissions });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error calculating emissions');
+  }
 };
 
-async function getPublicTransitEmissions(distance, type, apiKey, apiUrl) {
-    try {
-        const response = await axios.get(
-            `${apiUrl}/CarbonFootprintFromPublicTransit`, {
-                params: {
-                    distance,
-                    type,
-                },
-                headers: {
-                    apiKey,
-                    apiUrl
-                },
-            }
-        );
-
-        return response.data.emissions;
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-async function getCarTravelEmissions(distance, type, apiKey, apiUrl) {
-    try {
-        const response = await axios.get(
-            `${apiUrl}/CarbonFootprintFromCarTravel`, {
-                params: {
-                    distance,
-                    type,
-                },
-                headers: {
-                    apiKey,
-                    apiUrl
-                },
-            }
-        );
-
-        return response.data.emissions;
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-module.exports = carbonController;
+module.exports = { calculateEmissions };
