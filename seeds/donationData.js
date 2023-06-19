@@ -1,3 +1,5 @@
+// Not currently using, should we delete?
+
 const Donation = require('../models/Donation');
 
 const donationData = [

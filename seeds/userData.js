@@ -1,3 +1,5 @@
+// Not curerntly using, should we delete?
+
 const User  = require('../models/User');
 
 const userdata = [

@@ -1,3 +1,5 @@
+// This file isn't being used, should we delete it?
+
 const express = require('express');
 const router = express.Router();
 const authControllers = require('./authControllers');

@@ -1,3 +1,5 @@
+// Not currently using, should we delete?
+
 const sequelize = require('../config/connection');
 
 const seedUsers = require('./userData');
