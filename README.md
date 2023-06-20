@@ -49,7 +49,7 @@ MIT
 
 ## Technologies Used
 * dotenv: npm install dotenv
-* bcrypt: npm install bcrypt
+* bcryptjs: npm install bcryptjs
 * express: npm install express
 * express-session: npm install express-session
 * express-handlebars: npm install express-handlebars
