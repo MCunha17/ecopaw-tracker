@@ -15,7 +15,7 @@ const calculateEmissions = async (req, res) => {
     console.log(`Public transport miles converted to kilometers: ${publicTransKm}`);   
 
     // API key
-    const apiKey = '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359';
+    const apiKey = 'dec5d26536msh66e69860db0c77cp1cfab6jsn61725761d0b7';
 
     // Prepare the headers and params for the request to the Carbon Footprint API for car emissions
     const carOptions = {
@@ -26,7 +26,7 @@ const calculateEmissions = async (req, res) => {
             vehicle: 'MediumDieselCar'
         },
         headers: {
-          'X-RapidAPI-Key': '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359',
+          'X-RapidAPI-Key': apiKey,
           'X-RapidAPI-Host': 'carbonfootprint1.p.rapidapi.com'
         }
     };

@@ -16,44 +16,67 @@
     {{#if loggedIn}}
     <header>
         <h1 class="header">
-            Welcome, {{user.username}}!
+            Welcome to EcowPaw!
         </h1>
         <form action="/logout" method="post">
           <button type="submit">Logout</button>
         </form>
     </header>
+
     <div class="tracker">
         <h2>
             Daily Activity Tracker
         </h2>
         <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
-        <button class="car-travel">I Traveled by Car</button>
-        <button class="public-travel">I Used Public Transportation</button>
+        
+        <div class="checkbox-group">
+            <label class="carCheckbox">I Traveled by Car
+                <input type="checkbox" id="carCheckbox">
+                <span class="checkmark"></span>
+            </label>
+            <br>
+            <label class="publicCheckbox">I Traveled by Public Transportation
+                <input type="checkbox" id="publicCheckbox">
+                <span class="checkmark"></span>
+            </label>
+            <br>
+            <label class="walkCheckbox">I Traveled by Foot
+                <input type="checkbox" id="walkCheckbox">
+                <span class="checkmark"></span>
+            </label>
+        </div>
 
         <div id="emissions-form">
             <h3>Enter Miles Traveled</h3>
-
             <div class="form-group">
                 <label for="carMiles">Car Miles:</label>
                 <input type="number" id="carMiles" name="carMiles" min="0" step="0.1" required>
             </div>
-
             <div class="form-group">
                 <label for="publicTransMiles">Public Transportation Miles:</label>
                 <input type="number" id="publicTransMiles" name="publicTransMiles" min="0" step="0.1" required>
             </div>
-
+            <div class="form-group">
+                <label for="walkMiles">Walk Miles:</label>
+                <input type="number" id="walkMiles" name="walkMiles" min="0" step="0.1" required>
+            </div>
             <button id="calculateBtn">Calculate Total Emissions</button>
         </div>
 
-        <div id="emissions-result">
+        <div class="emissions-result">
             <div class="emissions" method="POST" action="/calculate-emissions">
-            <h3>Emissions Saved:</h3>
+            <h2>Total Emissions:</h2>
             <p id="emissionsSaved"></p>
+        </div>
+
+        <div class="polar-bear">
+            <h2>You're saving the polar bears!</h2>
+            <p>Atmospheric carbon dioxide is one of the primary drivers of increased temperatures and has led to the loss of sea ice that polar bears depend on.</p>
+            <img src="./images/card-1.jpg" alt="Polar Bear">
         </div>
     </div>
 
-    <div class="donation">
+    <!-- <div class="donation">
         {{#each donation.card as |donation|}}
         {{/each}}
     </div>
@@ -64,10 +87,19 @@
         </h2>
         <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
     </div>
-    {{/if}}
+    {{/if}} -->
 
+<!-- Script to pull in totalEmissions -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const carCheckbox = document.querySelector('#carCheckbox');
+        const publicCheckbox = document.querySelector('#publicCheckbox');
+        const walkCheckbox = document.querySelector('#walkCheckbox');
+
+        carCheckbox.checked = false;
+        publicCheckbox.checked = false;
+        walkCheckbox.checked = false;
+
         const emissionsForm = document.querySelector('#emissions-form');
         const calculateBtn = document.querySelector('#calculateBtn');
         const emissionsSaved = document.querySelector('#emissionsSaved');
@@ -104,5 +136,7 @@
         });
     });
 </script>
+
 </body>
+
 </html>

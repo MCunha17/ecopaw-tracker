@@ -1,79 +1,217 @@
 :root {
-    --primary: #264653;
-    --secondary: #2a9d8f;
-    --tertiary: #f4a261;
-    --light: #e3e4e3;
-    --dark: #182c23;
-    --error: #e76f51;
-    --border-radius: 0.3rem;
+  --primary: #264653;
+  --secondary: #2a9d8f;
+  --tertiary: #f4a261;
+  --light: #e3e4e3;
+  --dark: #182c23;
+  --error: #e76f51;
+  --border-radius: 0.3rem;
 }
 
 a {
-    color: var(--dark);
-    text-decoration: none;
-    font-family: 'Lato', sans-serif;
+  color: var(--dark);
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
 }
 
 p {
-    font-size: 18px;
-    font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-family: 'Lato', sans-serif;
 }
 
 h1 {
-    font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+  color:white;
 }
 
 header {
-    padding: 40px;
-    text-align: center;
-    background: var(--primary);
-    color: var(--light);
-    font-family: 'Oswald', sans-serif
+  margin-bottom: 20px;
+  padding: 40px;
+  text-align: center;
+  background: var(--primary);
+  color: var(--light);
+  font-family: 'Oswald', sans-serif;
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: var(--primary);
-  }
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: var(--primary);
+}
 
-  button {
-    background: var(--secondary);
-  }
-
+/* Login page styling */
 .login-card {
-    margin:auto;
-    display: block;
-    justify-self: center;
-    max-width: 50%;
-    padding: 5px;
-    border: 3px solid var(--dark);
-    border-radius: var(--border-radius);
-    background-color:var(--tertiary);
-    color: var(--primary);
+  margin: auto;
+  margin-bottom: 20px;
+  max-width: 50%;
+  padding: 5px;
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+  background-color: var(--tertiary);
+  color: var(--primary);
+}
+
+.login-form,
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.login-form input,
+.signup-form input,
+.login-form button,
+.signup-form button {
+  margin-bottom: 10px;
 }
 
 .card-1,
 .card-2,
 .card-3 {
-    margin: 20px;
-    flex: 0 1 300px;
-    border: 7px double var(--dark);
-    border-radius: 10px;
-    background-color: var(--secondary);
-    color: var(--dark);
-  }
+  margin: 20px;
+  flex: 0 1 300px;
+  border: 7px double var(--dark);
+  border-radius: 10px;
+  background-color: var(--secondary);
+  color: var(--dark);
+}
 
-  .footprint {
-    text-align: center;
-    padding: 10px 20px;
-    background-color: var(--tertiary);
-    color: var(--primary);
-  }
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+/* Homepage styling */
+.tracker {
+  margin: auto;
+  margin-bottom: 20px;
+  max-width: 50%;
+  padding: 5px;
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+  color: var(--light);
+}
+
+.form-group label {
+  color: var(--light);
+}
+
+.form-group input[type="number"] {
+  color: var(--dark);
+}
+
+.emissions-result {
+  text-align: center;
+  padding: 10px 50px;
+  background-color: var(--tertiary);
+  color: var(--primary);
+}
 
 .container {
-    display: flex;
-    flex-flow: column wrap;
-    align-content: flex-start;
-    align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  align-items: center;
+}
+
+.checkbox-group,
+.emissions-form {
+  margin-bottom: 30px;
+}
+
+.emissions-result {
+  margin-top: 30px
+}
+
+#emissionsSaved {
+  margin-bottom: 100px;
+}
+
+/* Checkboxes on homepage */
+.carCheckbox,
+.publicCheckbox,
+.walkCheckbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.carCheckbox input,
+.publicCheckbox input,
+.walkCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.carCheckbox .checkmark,
+.publicCheckbox .checkmark,
+.walkCheckbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--light);
+}
+
+/* On mouse-over, add a different background color */
+.carCheckbox:hover input ~ .checkmark,
+.publicCheckbox:hover input ~ .checkmark,
+.walkCheckbox:hover input ~ .checkmark
+{
+  background-color: var(--tertiary);
+}
+
+/* When the checkbox is checked, add a blue background */
+.carCheckbox input:checked ~ .checkmark,
+.publicCheckbox input:checked ~ .checkmark,
+.walkCheckbox input:checked ~ .checkmark {
+  background-color: var(--primary);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.carCheckbox .checkmark:after,
+.publicCheckbox .checkmark:after,
+.walkCheckbox .checkmark:after
+ {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.carCheckbox input:checked ~ .checkmark:after,
+.publicCheckbox input:checked ~ .checkmark:after,
+.walkCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.carCheckbox .checkmark:after,
+.publicCheckbox .checkmark:after,
+.walkCheckbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--light);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
