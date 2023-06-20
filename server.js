@@ -49,10 +49,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
+app.listen(process.env.PORT || 3001);
+
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () =>
+  app.listen(process.env.PORT || 3001, () =>
     console.log(
-      `\nServer running on port ${PORT}. Visit http://localhost:${PORT} and create an account!`
+      `\nServer running on port ${process.env.PORT || 3001}. Visit http://localhost:${process.env.PORT || 3001} and create an account!`
     )
   );
 });
