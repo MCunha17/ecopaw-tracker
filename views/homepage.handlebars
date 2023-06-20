@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" type="css" href="./public/css/style.css">
 </head>
 
 <body>
@@ -19,11 +19,9 @@
             Welcome to EcoPaw!
         </h1>
     </header>
-    <div class="flex two">
+    <div class="viewColumn">
         <div id="emissions-form">
-            <h2>
-                Daily Activity Tracker
-            </h2>
+            <h2>Daily Activity Tracker</h2>
             <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
             <h3>Enter Miles Traveled</h3>
 
@@ -37,62 +35,61 @@
                 <input type="number" id="publicTransMiles" name="publicTransMiles" min="0" step="0.1" required>
             </div>
 
-            <button id="calculateBtn">Calculate Total Emissions</button>
+            <button class="buttonStyle" id="calculateBtn">Calculate Total Emissions</button>
         </div>
 
-        <div id="emissions-result">
-            <div class="emissions" method="POST" action="/calculate-emissions">
-                <h3>Emissions Saved:</h3>
-                <p id="emissionsSaved"></p>
+        <div class="footprint">
+            <h2>Your Carbon Footprint:</h2>
+            <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
+            <div id="emissions-result">
+                <div class="emissions" method="POST" action="/calculate-emissions">
+                    <h3>Emissions Saved:</h3>
+                    <p id="emissionsSaved"></p>
+                </div>
             </div>
         </div>
-        <div class="footprint">
-            <h2>
-                Your Carbon Footprint:
-            </h2>
-            <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
-        </div>
+    </div>
 
+    <div class="viewColumn" id="rightcolumn">
         <div class="tabs three">
             <div class="column">
                 <section class="card1">
-                    <img src="/images/card-1.jpg">
+                    <img class="image" src="/images/card-1.jpg">
                     <div class="donation-details">
-                        <h3>Polar Bears International<h3>
-                                <button class="shyButton"
-                                    onclick="window.location.href='https://polarbearsinternational.org/';">
+                        <h3> Polar Bears International<h3>
+                                <button class="buttonStyle shyButton" onclick="window.location.href='https://polarbearsinternational.org/';">
                                     Link To Donate
                                 </button>
                     </div>
                 </section>
 
                 <section class="card2">
-                    <img src="/images/card-2.jpg">
+                    <img class="image" src="/images/card-2.jpg">
                     <div class="donation-details">
-                        <h3>Wildlife Defenders</h3>
-                        <button class="shyButton"
-                            onclick="window.location.href='https://defenders.org/wildlife/polar-bear';">
+                        <h3> Wildlife Defenders</h3>
+                        <button class="shyButton buttonStyle" onclick="window.location.href='https://defenders.org/wildlife/polar-bear';">
                             Link To Donate
                         </button>
                     </div>
                 </section>
 
                 <section class="card3">
-                    <img src="/images/card-3.jpg">
+                    <img class="image" src="/images/card-3.jpg">
                     <div class="donation-details">
-                        <h3>Alaska Wild</h3>
-                        <button class="shyButton" onclick="window.location.href='https://alaskawild.org/';">
+                        <h3> Alaska Wild</h3>
+                        <button class="shyButton buttonStyle" onclick="window.location.href='https://alaskawild.org/';">
                             Link To Donate
                         </button>
                     </div>
             </div>
         </div>
-        </section>
-
-        <form action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
     </div>
+    </section>
+
+    <form action="/logout" method="post">
+        <button class="buttonStyle" type="submit">Logout</button>
+    </form>
+
     {{/if}}
 
     <script>
