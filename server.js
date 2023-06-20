@@ -25,7 +25,6 @@ const sess = {
   }),
 };
 
-// server.js
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,8 +48,6 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
-
-app.listen(process.env.PORT || 3001);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(process.env.PORT || 3001, () =>
