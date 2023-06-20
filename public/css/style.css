@@ -24,6 +24,8 @@ h1 {
 }
 
 header {
+  margin-bottom: 10px;
+  padding: 10px;
   text-align: center;
   background: var(--tertiary);
   color: var(--primary);
@@ -32,6 +34,7 @@ header {
 
 main {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   padding: 5px;
   background-color: var(--light);
@@ -42,7 +45,8 @@ main {
 }
 
 .login-card {
-  height: 790px;
+  margin-left: 25px;
+  height: 300px;
   align-content: center;
 }
 
