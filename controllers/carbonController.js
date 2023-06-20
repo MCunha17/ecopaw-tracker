@@ -15,7 +15,7 @@ const calculateEmissions = async (req, res) => {
     console.log(`Public transport miles converted to kilometers: ${publicTransKm}`);   
 
     // API key
-    const apiKey = '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359';
+    const apiKey = '1a1c4e6096msh3ebf37ead8c415bp14f4bejsn51e9dd06ff92';
 
     // Prepare the headers and params for the request to the Carbon Footprint API for car emissions
     const carOptions = {

@@ -9,28 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./public/style.css">
+    <link rel="stylesheet" href="/public/style.css">
 </head>
 
 <body>
     {{#if loggedIn}}
     <header>
         <h1 class="header">
-            Welcome, {{user.username}}!
+            Welcome to EcoPaw!
         </h1>
-        <form action="/logout" method="post">
-          <button type="submit">Logout</button>
-        </form>
     </header>
-    <div class="tracker">
-        <h2>
-            Daily Activity Tracker
-        </h2>
-        <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
-        <button class="car-travel">I Traveled by Car</button>
-        <button class="public-travel">I Used Public Transportation</button>
-
+    <div class="flex two">
         <div id="emissions-form">
+            <h2>
+                Daily Activity Tracker
+            </h2>
+            <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
             <h3>Enter Miles Traveled</h3>
 
             <div class="form-group">
@@ -48,61 +42,97 @@
 
         <div id="emissions-result">
             <div class="emissions" method="POST" action="/calculate-emissions">
-            <h3>Emissions Saved:</h3>
-            <p id="emissionsSaved"></p>
+                <h3>Emissions Saved:</h3>
+                <p id="emissionsSaved"></p>
+            </div>
         </div>
-    </div>
+        <div class="footprint">
+            <h2>
+                Your Carbon Footprint:
+            </h2>
+            <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
+        </div>
 
-    <div class="donation">
-        {{#each donation.card as |donation|}}
-        {{/each}}
-    </div>
+        <div class="tabs three">
+            <div class="column">
+                <section class="card1">
+                    <img src="/images/card-1.jpg">
+                    <div class="donation-details">
+                        <h3>Polar Bears International<h3>
+                                <button class="shyButton"
+                                    onclick="window.location.href='https://polarbearsinternational.org/';">
+                                    Link To Donate
+                                </button>
+                    </div>
+                </section>
 
-    <div class="footprint">
-        <h2>
-            Your Carbon Footprint:
-        </h2>
-        <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
+                <section class="card2">
+                    <img src="/images/card-2.jpg">
+                    <div class="donation-details">
+                        <h3>Wildlife Defenders</h3>
+                        <button class="shyButton"
+                            onclick="window.location.href='https://defenders.org/wildlife/polar-bear';">
+                            Link To Donate
+                        </button>
+                    </div>
+                </section>
+
+                <section class="card3">
+                    <img src="/images/card-3.jpg">
+                    <div class="donation-details">
+                        <h3>Alaska Wild</h3>
+                        <button class="shyButton" onclick="window.location.href='https://alaskawild.org/';">
+                            Link To Donate
+                        </button>
+                    </div>
+            </div>
+        </div>
+        </section>
+
+        <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
     </div>
     {{/if}}
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const emissionsForm = document.querySelector('#emissions-form');
-        const calculateBtn = document.querySelector('#calculateBtn');
-        const emissionsSaved = document.querySelector('#emissionsSaved');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const emissionsForm = document.querySelector('#emissions-form');
+            const calculateBtn = document.querySelector('#calculateBtn');
+            const emissionsSaved = document.querySelector('#emissionsSaved');
 
-        calculateBtn.addEventListener('click', () => {
-            const carMiles = parseFloat(document.querySelector('#carMiles').value);
-            const publicTransMiles = parseFloat(document.querySelector('#publicTransMiles').value);
+            calculateBtn.addEventListener('click', () => {
+                const carMiles = parseFloat(document.querySelector('#carMiles').value);
+                const publicTransMiles = parseFloat(document.querySelector('#publicTransMiles').value);
 
-            fetch('/calculate-emissions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    carMiles,
-                    publicTransMiles
-                }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                emissionsSaved.textContent = `${data.totalEmissions} kg CO2e`;
-                emissionsSaved.style.display = 'block';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                emissionsSaved.textContent = 'Error calculating emissions';
-                emissionsSaved.style.display = 'block';
+                fetch('/calculate-emissions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        carMiles,
+                        publicTransMiles
+                    }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        emissionsSaved.textContent = `${data.totalEmissions} kg CO2e`;
+                        emissionsSaved.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        emissionsSaved.textContent = 'Error calculating emissions';
+                        emissionsSaved.style.display = 'block';
+                    });
             });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>
