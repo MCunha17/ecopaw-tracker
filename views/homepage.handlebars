@@ -23,7 +23,26 @@
         <div id="emissions-form">
             <h2>Daily Activity Tracker</h2>
             <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
-            <h3>Enter Miles Traveled</h3>
+            
+            <div class="checkbox-group">
+            <label class="carCheckbox">I Traveled by Car
+                <input type="checkbox" id="carCheckbox">
+                <span class="checkmark"></span>
+            </label>
+            <br>
+            <label class="publicCheckbox">I Traveled by Public Transportation
+                <input type="checkbox" id="publicCheckbox">
+                <span class="checkmark"></span>
+            </label>
+            <br>
+            <label class="walkCheckbox">I Traveled by Foot
+                <input type="checkbox" id="walkCheckbox">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+
+        <div id="emissions-form">
+        <h3>Enter Miles Traveled</h3>
 
             <div class="form-group">
                 <label for="carMiles">Car Miles:</label>
@@ -35,20 +54,33 @@
                 <input type="number" id="publicTransMiles" name="publicTransMiles" min="0" step="0.1" required>
             </div>
 
+            <div class="form-group">
+                <label for="walkMiles">Walk Miles:</label>
+                <input type="number" id="walkMiles" name="walkMiles" min="0" step="0.1" required>
+            </div>
+
             <button class="buttonStyle" id="calculateBtn">Calculate Total Emissions</button>
         </div>
 
+        <div class="emissions-result">
+            <div class="emissions" method="POST" action="/calculate-emissions">
+            <h2>Total Emissions:</h2>
+            <p id="emissionsSaved"></p>
+        </div>
+
+        <div class="polar-bear">
+            <h2>You're saving the polar bears!</h2>
+            <p>Atmospheric carbon dioxide is one of the primary drivers of increased temperatures and has led to the loss of sea ice that polar bears depend on.</p>
+        </div>
+    </div>
+
+<!-- This isn't getting used right now
         <div class="footprint">
             <h2>Your Carbon Footprint:</h2>
             <p id="carbonFootprint">{{carbonFootprint}} kg CO2e</p>
-            <div id="emissions-result">
-                <div class="emissions" method="POST" action="/calculate-emissions">
-                    <h3>Emissions Saved:</h3>
-                    <p id="emissionsSaved"></p>
-                </div>
-            </div>
         </div>
     </div>
+-->
 
     <div class="viewColumn" id="rightcolumn">
         <div class="tabs three">
@@ -81,19 +113,27 @@
                             Link To Donate
                         </button>
                     </div>
+                </section>
+            </div>
+                <form action="/logout" method="post">
+                    <button class="buttonStyle" type="submit">Logout</button>
+                </form>
             </div>
         </div>
     </div>
-    </section>
-
-    <form action="/logout" method="post">
-        <button class="buttonStyle" type="submit">Logout</button>
-    </form>
 
     {{/if}}
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const carCheckbox = document.querySelector('#carCheckbox');
+            const publicCheckbox = document.querySelector('#publicCheckbox');
+            const walkCheckbox = document.querySelector('#walkCheckbox');
+
+            carCheckbox.checked = false;
+            publicCheckbox.checked = false;
+            walkCheckbox.checked = false;
+
             const emissionsForm = document.querySelector('#emissions-form');
             const calculateBtn = document.querySelector('#calculateBtn');
             const emissionsSaved = document.querySelector('#emissionsSaved');

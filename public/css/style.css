@@ -94,9 +94,92 @@ main {
   padding: 10px;
 }
 
-
 .viewColumn {
   float: left;
-  width: 50%;
+  width: 65%;
   padding: 10px;
+}
+
+/* Checkboxes on homepage */
+.carCheckbox,
+.publicCheckbox,
+.walkCheckbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.carCheckbox input,
+.publicCheckbox input,
+.walkCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.carCheckbox .checkmark,
+.publicCheckbox .checkmark,
+.walkCheckbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--light);
+}
+
+/* On mouse-over, add a different background color */
+.carCheckbox:hover input ~ .checkmark,
+.publicCheckbox:hover input ~ .checkmark,
+.walkCheckbox:hover input ~ .checkmark
+{
+  background-color: var(--tertiary);
+}
+
+/* When the checkbox is checked, add a blue background */
+.carCheckbox input:checked ~ .checkmark,
+.publicCheckbox input:checked ~ .checkmark,
+.walkCheckbox input:checked ~ .checkmark {
+  background-color: var(--primary);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.carCheckbox .checkmark:after,
+.publicCheckbox .checkmark:after,
+.walkCheckbox .checkmark:after
+ {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.carCheckbox input:checked ~ .checkmark:after,
+.publicCheckbox input:checked ~ .checkmark:after,
+.walkCheckbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.carCheckbox .checkmark:after,
+.publicCheckbox .checkmark:after,
+.walkCheckbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--light);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
