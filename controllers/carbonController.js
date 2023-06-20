@@ -26,7 +26,7 @@ const calculateEmissions = async (req, res) => {
             vehicle: 'MediumDieselCar'
         },
         headers: {
-          'X-RapidAPI-Key': '1d4fd72b78msh5a0c805967281bbp1d8af6jsn55a9c3044359',
+          'X-RapidAPI-Key': '1a1c4e6096msh3ebf37ead8c415bp14f4bejsn51e9dd06ff92',
           'X-RapidAPI-Host': 'carbonfootprint1.p.rapidapi.com'
         }
     };

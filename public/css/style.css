@@ -1,0 +1,102 @@
+:root {
+  --primary: #264653;
+  --secondary: #2a9d8f;
+  --tertiary: #f4a261;
+  --light: #C6E8E4;
+  --dark: #182c23;
+  --error: #e76f51;
+  --border-radius: 0.3rem;
+}
+
+a {
+  color: var(--dark);
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+}
+
+p {
+  font-size: 18px;
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+}
+
+header {
+  text-align: center;
+  background: var(--tertiary);
+  color: var(--primary);
+  font-family: 'Oswald', sans-serif
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  background-color: var(--light);
+}
+
+.buttonStyle {
+  background: var(--tertiary);
+}
+
+.login-card {
+  height: 790px;
+  align-content: center;
+}
+
+.emissions-form {
+  border: 7px solid var(--dark);
+  border-radius: 10px;
+}
+
+.form-group {
+  max-width: 50%;
+}
+
+.card1,
+.card2,
+.card3 {
+  width: 480px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border: 4px solid var(--primary);
+  border-radius: 10px;
+  background-color: var(--secondary);
+  color: var(--dark);
+}
+
+.footprint {
+  max-width: 50%;
+  max-height: fit-content;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--secondary);
+  color: var(--primary);
+  border: 4px solid var(--primary);
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  align-items: center;
+}
+
+.image {
+  max-width: 156px;
+  max-height: 156px;
+  padding: 10px;
+}
+
+
+.viewColumn {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
