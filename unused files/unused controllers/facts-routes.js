@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
-const withAuth = require('../utils/auth');
+const withAuth = require('../../utils/auth');
 
 // Get polar bear fact
 router.get('/api/polar-bear-facts', withAuth, (req, res) => {

@@ -1,7 +1,3 @@
 .env
 .DS_Store
-.seeds
-.controllers/auth-routes.js
-.controllers/facts-routes.js
-.public/js
-.views/donation-card.handlebars
+.unused files
