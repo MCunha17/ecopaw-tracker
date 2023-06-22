@@ -3,11 +3,14 @@ require('dotenv').config();
 
 let sequelize;
 
+// Check if a JAWSDB_URL environment variable is available (indicating a Heroku deployment)
 if (process.env.JAWSDB_URL) {
+  // Set up Sequelize connection using the JAWSDB_URL
   sequelize = new Sequelize(process.env.JAWSDB_URL, {
     dialect: 'mysql'
   });
 } else {
+  // Set up Sequelize connection using the local environment variables
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,

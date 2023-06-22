@@ -13,17 +13,21 @@
 </head>
 
 <body>
+    <!-- If the user is logged in -->
     {{#if loggedIn}}
+    <!-- Page header -->
     <header>
         <h1 class="header">
             Welcome to EcoPaw!
         </h1>
     </header>
+
+    <!-- Daily activity tracker -->
     <div class="viewColumn">
         <div id="emissions-form">
             <h2>Daily Activity Tracker</h2>
             <p>Let us know what your daily activity looks like so you can view your carbon footprint!</p>
-            
+            <!-- Activity checkboxes -->
             <div class="checkbox-group">
             <label class="carCheckbox">I Traveled by Car
                 <input type="checkbox" id="carCheckbox">
@@ -41,33 +45,30 @@
             </label>
         </div>
 
+        <!-- Miles traveled inputs -->
         <div id="emissions-form">
         <h3>Enter Miles Traveled</h3>
-
             <div class="form-group">
                 <label for="carMiles">Car Miles:</label>
                 <input type="number" id="carMiles" name="carMiles" min="0" step="0.1" required>
             </div>
-
             <div class="form-group">
                 <label for="publicTransMiles">Public Transportation Miles:</label>
                 <input type="number" id="publicTransMiles" name="publicTransMiles" min="0" step="0.1" required>
             </div>
-
             <div class="form-group">
                 <label for="walkMiles">Walk Miles:</label>
                 <input type="number" id="walkMiles" name="walkMiles" min="0" step="0.1" required>
             </div>
-
             <button class="buttonStyle" id="calculateBtn">Calculate Total Emissions</button>
         </div>
 
+        <!-- Total emissions result -->
         <div class="emissions-result">
             <div class="emissions" method="POST" action="/calculate-emissions">
             <h2>Total Emissions:</h2>
             <p id="emissionsSaved"></p>
         </div>
-
         <div class="polar-bear">
             <h2>You're saving the polar bears!</h2>
             <p>Atmospheric carbon dioxide is one of the primary drivers of increased temperatures and has led to the loss of sea ice that polar bears depend on.</p>
@@ -82,6 +83,7 @@
     </div>
 -->
 
+    <!-- Polar bear donation cards -->
     <div class="viewColumn" id="rightcolumn">
         <div class="tabs three">
             <div class="column">
@@ -94,7 +96,6 @@
                                 </button>
                     </div>
                 </section>
-
                 <section class="card2">
                     <img class="image" src="/images/card-2.jpg">
                     <div class="donation-details">
@@ -104,7 +105,6 @@
                         </button>
                     </div>
                 </section>
-
                 <section class="card3">
                     <img class="image" src="/images/card-3.jpg">
                     <div class="donation-details">
@@ -114,6 +114,8 @@
                         </button>
                     </div>
                 </section>
+
+            <!-- Logout button -->
             </div>
                 <form action="/logout" method="post">
                     <button class="buttonStyle" type="submit">Logout</button>
@@ -124,24 +126,31 @@
 
     {{/if}}
 
+    <!-- Script for activity checkboxes and calculating the total emissions -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Retrive checkbox elements
             const carCheckbox = document.querySelector('#carCheckbox');
             const publicCheckbox = document.querySelector('#publicCheckbox');
             const walkCheckbox = document.querySelector('#walkCheckbox');
 
+            // Uncheck checkboxes initially
             carCheckbox.checked = false;
             publicCheckbox.checked = false;
             walkCheckbox.checked = false;
 
+            // Retrive form and button elements
             const emissionsForm = document.querySelector('#emissions-form');
             const calculateBtn = document.querySelector('#calculateBtn');
             const emissionsSaved = document.querySelector('#emissionsSaved');
 
+            // Add click event listener to the Calculate button
             calculateBtn.addEventListener('click', () => {
+                // Retrive the entered miles values
                 const carMiles = parseFloat(document.querySelector('#carMiles').value);
                 const publicTransMiles = parseFloat(document.querySelector('#publicTransMiles').value);
 
+                // Perform a fetch request to calculate emissions
                 fetch('/calculate-emissions', {
                     method: 'POST',
                     headers: {
@@ -153,16 +162,19 @@
                     }),
                 })
                     .then(response => {
+                        // Check if the response was successful
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
                         return response.json();
                     })
                     .then(data => {
+                        // Update the displayed emissions value
                         emissionsSaved.textContent = `${data.totalEmissions} kg CO2e`;
                         emissionsSaved.style.display = 'block';
                     })
                     .catch(error => {
+                        // Handle errors during the emissions calculation
                         console.error('Error:', error);
                         emissionsSaved.textContent = 'Error calculating emissions';
                         emissionsSaved.style.display = 'block';

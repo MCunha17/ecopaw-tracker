@@ -33,21 +33,24 @@ Track your carbon footprint by signing up and logging in. You have the ability t
 [Peyton Tranel](https://github.com/pjt3232)  
 [John Henry Hopkins](https://github.com/jhhopkins13)  
 
-
 ## Example Images
 ![Screenshot of application](public/images/ecopaw-tracker-screenshot.png)
 
 ## Sources
-[Writing middleware with Express](https://expressjs.com/en/guide/writing-middleware.html)  
-[Using sequelize sessions](https://www.npmjs.com/package/connect-session-sequelize)  
-[Carbon Footprint API](https://rapidapi.com/zyla-labs-zyla-labs-default/api/carbon-footprint-calculator-api/)  
-
+* [Writing middleware with Express](https://expressjs.com/en/guide/writing-middleware.html)  
+* [Using sequelize sessions](https://www.npmjs.com/package/connect-session-sequelize)
+* [Node JS tutorial](https://www.w3schools.com/nodejs/)
+* [Templating with Handlebars cheat sheet](https://www.codecademy.com/learn/learn-handlebars/modules/templating-with-handlebars/cheatsheet)
+* [MySQL tutorial](https://www.w3schools.com/MySQL/default.asp)
+* [HTML <input type="checkbox">](https://www.w3schools.com/tags/att_input_type_checkbox.asp)
+* [Heroku Troubleshooting & Support>](https://devcenter.heroku.com/categories/troubleshooting)
+* [Carbon Footprint API](https://rapidapi.com/zyla-labs-zyla-labs-default/api/carbon-footprint-calculator-api/)
 
 ## License
 MIT
 
-
 ## Technologies Used
+* [Carbon Footprint API](https://rapidapi.com/carbonandmore-carbonandmore-default/api/carbonfootprint1)
 * dotenv: npm install dotenv
 * bcryptjs: npm install bcryptjs
 * express: npm install express
