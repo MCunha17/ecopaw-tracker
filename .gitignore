@@ -1,3 +1,4 @@
 .env
 .DS_Store
-.unused files
+.unused_files
+.node_modules
