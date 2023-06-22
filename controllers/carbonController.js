@@ -1,6 +1,6 @@
 const convert = require('convert-units');
 const axios = require('axios');
-const apiKey = require('../config/apiKeys.js');
+const apiKey = require('../config/apiKey.js');
 
 const calculateEmissions = async (req, res) => {
     // Parse the values from the request body
