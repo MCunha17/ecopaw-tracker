@@ -1,6 +1,6 @@
 const convert = require('convert-units');
 const axios = require('axios');
-const config = require('config');
+const apiKey = require('../config/apiKey.js');
 
 const calculateEmissions = async (req, res) => {
     // Parse the values from the request body
@@ -14,9 +14,6 @@ const calculateEmissions = async (req, res) => {
     // Log the conversion results
     console.log(`Car miles converted to kilometers: ${carKm}`);
     console.log(`Public transport miles converted to kilometers: ${publicTransKm}`);   
-
-    // API key
-    const apiKey = config.apiKey;
 
     // Prepare the headers and params for the request to the Carbon Footprint API for car emissions
     const carOptions = {
