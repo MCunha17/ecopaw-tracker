@@ -12,11 +12,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3001;
 
+// Configure the session
 const sess = {
   secret: 'secret',
   cookie: {
-    // Stored in milliseconds
-    maxAge: 24 * 60 * 60 * 1000, // expires after 1 day
+    maxAge: 24 * 60 * 60 * 1000,
   },
   resave: false,
   saveUninitialized: true,
@@ -37,18 +37,23 @@ const customMiddleware = (req, res, next) => {
 
 app.use(customMiddleware);
 
+// Set up session
 app.use(session(sess));
 
+// Configure Handlebars as the template engine
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+// Serve static files
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Set up routes
 app.use(routes);
 
+// Sync Sequelize models and start the server
 sequelize.sync({ force: false }).then(() => {
   app.listen(process.env.PORT || 3001, () =>
     console.log(
