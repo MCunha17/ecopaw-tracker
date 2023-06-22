@@ -1,2 +1,6 @@
 .env
 .DS_Store
+.seeds
+.controllers/auth-routes.js
+.controllers/facts-routes.js
+.views/donation-card.handlebars
